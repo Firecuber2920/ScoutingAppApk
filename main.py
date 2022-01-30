@@ -1,43 +1,32 @@
 import kivy
 from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+from kivy.lang import Builder
 
-class MyGridLayout(GridLayout):
-    def __init__(self, **kwargs):
-        super(MyGridLayout, self).__init__(**kwargs)
-        self.cols=2
-        self.add_widget(Label(text="Name: "))
-        self.name = TextInput(multiline=False)
-        self.add_widget(self.name)
 
-        self.add_widget(Label(text="Favorite Pizza: "))
-        self.pizza = TextInput(multiline=False)
-        self.add_widget(self.pizza)
 
-        self.add_widget(Label(text="Favorite color: "))
-        self.color = TextInput(multiline=False)
-        self.add_widget(self.color)
+class MyGridLayout(Widget):
 
-        self.submit = Button(text = "Submit", font_size = 32)
-        self.submit.bind(on_press=self.press)
-        self.add_widget(self.submit)
+    teamNum = ObjectProperty(None)
+    pointsScored = ObjectProperty(None)
+    thoughts = ObjectProperty(None)
 
-    def press(self, instance):
-        name = self.name.text
-        pizza = self.pizza.text
-        color = self.color.text
-        self.add_widget(Label(text=f"Hello {name}, you like {pizza} and your favorite color is {color}"))
+    def press(self):
+        teamNum = self.teamNum.text
+        pointsScored = self.pointsScored.text
+        thoughts = self.thoughts.text
 
-        self.name.text=""
-        self.pizza.text=""
-        self.color.text=""
+        print(f"Team {teamNum}, you scored {pointsScored} therefore we think {thoughts} about yous")
 
-class MyApp(App):
+        self.teamNum.text=""
+        self.pointsScored.text=""
+        self.thoughts.text=""
+
+
+class ScoutingApp(App):
     def build(self):
         return MyGridLayout()
 
 
-MyApp().run()
+ScoutingApp().run()
